@@ -2,17 +2,20 @@
  Module for providing wind, solar, and coal EFs based on location
  * Key point: single EF supplied for Wind while two EFs supplied for O&M and installation/construction (estimated 25 year life span of solar plants)
 ### Modules to Install
-* Need to install geopy used to calculate which state that coord is in
+* Need to install geopy used to calculate which state that hypothetical plant is in
     
     if in anaconda run: 
     conda install -c conda-forge geopy
 ### Data Sources:
-* State level capacities was taken from https://seia.org/state-solar-policy/new-hampshire-solar
-* Jobs data for solar taken from https://www.solarstates.org/#states/solar-jobs/2019
-* Wind capacity from EIA datasets EIA 860
-* Wind jobs rounded in three bins used in paper Employment factors for wind and solar energy technologies: A literature review
-* Coal capacity for each state from EIA datasets EIA 860
-* Coal electric generation from BW Research state level reports
+* Solar state level capacities was taken from https://seia.org/state-solar-policy/new-hampshire-solar
+* Solar Jobs data from https://www.solarstates.org/#states/solar-jobs/2019
+
+* Wind capacity from EIA dataset: https://www.eia.gov/electricity/data/eia860/
+* Wind jobs rounded in three bins used in paper Employment factors for wind and solar energy technologies: A literature review https://www.sciencedirect.com/science/article/abs/pii/S1364032115000118
+
+* Coal capacity for each state also from EIA dataset: EIA 860
+* Coal electric generation jobs from BW Research state level reports: https://static1.squarespace.com/static/5a98cf80ec4eb7c5cd928c61/t/5c7f375515fcc0964aa19491/1551841115357/USEER+Energy+Employment+by+State.pdf
+
 * State Abbreviations dict used graciously taken from: https://gist.github.com/rogerallen/1583593
 
 
