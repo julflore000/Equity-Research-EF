@@ -7,7 +7,7 @@
     if in anaconda run: 
     conda install -c conda-forge geopy
 ### Data Sources:
-* Solar state level capacities was taken from https://seia.org/state-solar-policy/new-hampshire-solar
+* Solar state level capacities was taken from https://seia.org/states-map
 * Solar Jobs data from https://www.solarstates.org/#states/solar-jobs/2019
 
 * Wind capacity from EIA dataset: https://www.eia.gov/electricity/data/eia860/
