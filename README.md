@@ -47,6 +47,15 @@ Example:
     #returns in panda dataframe set up
     coalEFs = getCoalEFs(testPlantList)
 
+Returned dataset for example
+
+
+                        Plant EF
+    Bridgeport Station  0.132500
+    Merrimack           0.209227
+    Brandon Shores      0.457080
+
+    
 `getReEFs`: Input list of lat and long of plant as well as whether its solar or not, include in list within list
 
 Example: 

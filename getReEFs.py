@@ -43,7 +43,3 @@ def getReEFs(rePlantList):
     pandaREEF = pd.DataFrame.from_dict(reEFDict,orient='index',columns=['Con/Instl EF','O&M EF'])
     
     return pandaREEF
-    
-    
-testList = [["42.360081","-71.058884", "S"],["42.360081","-71.058884", "W"]]
-finalDataframe = getReEFs(testList)
