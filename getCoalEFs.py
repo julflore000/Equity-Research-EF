@@ -9,7 +9,7 @@ def getCoalEFs(coalPlantList):
 
     Args:
         coalPlantList ([list]): [includes the coal plants slated for retirement- should be from EIA 860]
-    """  
+    """ 
     #read in coal plant data EF_data\coalEFs.xlsx
     coalPlantLocs = pd.read_excel("EF_data/coalPlantLocs.xlsx")
     
@@ -56,3 +56,10 @@ def getCoalEFs(coalPlantList):
     pandaCoalEF = pd.DataFrame.from_dict(coalEFPandaDf,orient='index',columns=['Plant EF'])
     
     return pandaCoalEF
+
+
+def getCoalDecom():
+    """returns the employment factor for decommissioning a coal plant- right now fixed as static value
+    see readME for data source
+    """
+    return 1.65

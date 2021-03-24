@@ -1,5 +1,5 @@
 # Equity Research EFs
- Module for providing wind, solar, and coal EFs based on location
+ Module for providing wind, solar, and coal job years/MW EFs based on location
  * Key point: single EF supplied for Wind while two EFs supplied for O&M and installation/construction (estimated 25 year life span of solar plants)
 ### Modules to Install
 * Need to install geopy used to calculate which state that hypothetical plant is in
@@ -38,7 +38,7 @@ States and their abbreviations included in this module:
 ### How to use:
 
 `getCoalEFs`: Input list of coal plant names-will check that the plant is conventional steam coal may need to change later will then return 
-panda data frame with each row being the plant name and then the EF in its respective row
+panda data frame with each row being the plant name and then the EF in its respective row.
 
 Example: 
     
@@ -55,25 +55,63 @@ Returned dataset for example
     Merrimack           0.209227
     Brandon Shores      0.457080
 
+`getCoalDecom`: returns the static value of job-years/MW created for decommissioning a coal plant (right now 1.65 job-years/MW), data comes from the paper:  Job creation during the global energy transition towards 100% renewable power system by 2050 
     
-`getReEFs`: Input list of lat and long of plant as well as whether its solar or not, include in list within list
+`getReEFs`: Input list of lat and long of plant as well as whether its solar or not, include in list within list. Also input year of analysis after list in module call
 
 Example: 
     
     testPlantList = [["42.360081","-71.058884", "S"],["42.360081","-71.058884", "W"]] - gets first solar then wind EFs for that location (at state level which in this case is Boston)
     
-    #returns in panda dataframe set up
-    renewableEFs = getReEFs(testPlantList)
+    #returns in panda data frame set up
+    renewableEFs = getReEFs(testPlantList,2020)
 
     #final format will be in two manners
     if solar selected
-        key "lat,long,S" = [Construction EF, O&M EF]
+        key "lat,long,S" = [Construction EF * (1-CAPEX decline), O&M EF * (1-OPEX decline)]
     if wind selected
-        key "lat,long,W" = [single EF]
+        key "lat,long,W" = [single EF * (1-(CAPEX +OPEX)/2)]
 
-Example returned dataset for same coordinate with different keys, note that there was no second EF returned for wind, only a single value encapsulating both
+* CAPEX: capital expenditures (installation & construction)
+* OPEX: operational expenditures (operations & maintenance)
+
+
+Example returned dataset for same coordinate with different keys, note that there was no second EF returned for wind, only a single value encapsulating both and since start year 
 
 
                             Con/Instl EF    O&M EF
     42.360081,-71.058884,S      1.267455  0.320726
     42.360081,-71.058884,W      2.800000       NaN
+
+
+* Note: for converting the solar construction jobs/MW to job-years/MW we divided the jobs by the expected lifetime of the plant: 30 years taken from  Job creation during the global energy transition towards 100% renewable power system by 2050
+
+
+# Next Steps/Things to go over at meeting
+
+# 1 Wind Jobs
+Wind jobs: it seems that the American Wind Energy Association or now American Clean Power is the place to go
+for wind energy related statistics. Worth getting state level employment information at this point, setting a single EF for construction & O&M could be best bet?
+
+If interested this is the membership to get their info https://cleanpower.org/membership/
+
+Cost: $500 dollars for membership (insane amounts once they start looking at other companies 100k +)
+
+# 2 Decom EFs
+
+- how important is it to have state level coal EFs, besides treating it as a single value from the global study paper
+
+
+Coal decommissioning: implemented basic module for getCoalDecomEF(), single value from this paper: Job creation during the global energy transition towards 100% renewable power system by 2050, treated at 1.65 job-years/MW
+
+From discussing with the authors that included these values, they based the claculations off a coal plant in Kosovo that retired and then spread that over to all the technologies, from the email they said that the results were "conservative"...- how does this get accepted?
+
+# 3 Decline EFs
+
+Employment factors changing with time as well: from the same research paper: Job creation during the global energy transition towards 100% renewable power system by 2050
+
+Provide options for utility vs residential PV decline factors- believe we should be using utility however our overall solar EFs include residential jobs- question to bring up, right now averaging the two, see dataset in EF_data folder for more details
+
+only applicable to REs, coal does not change
+
+# can also work on changing lifetime as well for solar plants
