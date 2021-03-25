@@ -96,7 +96,7 @@ for wind energy related statistics. Worth getting state level employment informa
 
 If interested this is the membership to get their info https://cleanpower.org/membership/
 
-Cost: $500 dollars for membership (insane amounts once they start looking at other companies- pice tag in ranges of $100k +)
+Cost: $500 dollars for academic membership (insane amounts once they start looking at other companies- pice tag in ranges of $100k +)
 
 # 2 Decom EFs
 
