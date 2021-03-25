@@ -1,10 +1,11 @@
 # Equity Research EFs
  Module for providing wind, solar, and coal job years/MW EFs based on location
- * Key point: single EF supplied for Wind while two EFs supplied for O&M and installation/construction (estimated 25 year life span of solar plants)
+ * Key point: single EF supplied for Wind while two EFs supplied for O&M and installation/construction 
+
 ### Modules to Install
 * Need to install geopy used to calculate which state that hypothetical plant is in
     
-    if in anaconda run: 
+    if in anaconda terminal run: 
     conda install -c conda-forge geopy
 ### Data Sources:
 * Solar state level capacities was taken from https://seia.org/states-map
@@ -13,7 +14,7 @@
 * Wind capacity from EIA dataset: https://www.eia.gov/electricity/data/eia860/
 * Wind jobs rounded in three bins used in paper Employment factors for wind and solar energy technologies: A literature review https://www.sciencedirect.com/science/article/abs/pii/S1364032115000118
 
-* Coal capacity for each state also from EIA dataset: EIA 860
+* Coal capacity for each state also from EIA dataset: EIA 860 see wind dataset above
 * Coal electric generation jobs from BW Research state level reports: https://static1.squarespace.com/static/5a98cf80ec4eb7c5cd928c61/t/5c7f375515fcc0964aa19491/1551841115357/USEER+Energy+Employment+by+State.pdf
 
 * State Abbreviations dict used graciously taken from: https://gist.github.com/rogerallen/1583593
@@ -76,7 +77,7 @@ Example:
 * OPEX: operational expenditures (operations & maintenance)
 
 
-Example returned dataset for same coordinate with different keys, note that there was no second EF returned for wind, only a single value encapsulating both and since start year 
+Example returned dataset for same coordinate with different keys, note that there was no second EF returned for wind, only a single value encapsulating both and since start year is less then time frame (<=2020 there is no decline factor).
 
 
                             Con/Instl EF    O&M EF
@@ -91,11 +92,11 @@ Example returned dataset for same coordinate with different keys, note that ther
 
 # 1 Wind Jobs
 Wind jobs: it seems that the American Wind Energy Association or now American Clean Power is the place to go
-for wind energy related statistics. Worth getting state level employment information at this point, setting a single EF for construction & O&M could be best bet?
+for wind energy related statistics. Worth getting state level employment information at this point, or simply setting a static EFs for construction & O&M?
 
 If interested this is the membership to get their info https://cleanpower.org/membership/
 
-Cost: $500 dollars for membership (insane amounts once they start looking at other companies 100k +)
+Cost: $500 dollars for membership (insane amounts once they start looking at other companies- pice tag in ranges of $100k +)
 
 # 2 Decom EFs
 
