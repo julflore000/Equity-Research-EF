@@ -90,7 +90,7 @@ Example returned dataset for same coordinate with different keys, note that ther
 
 
                             Con/Instl EF    O&M EF
-    42.360081,-71.058884,S      1.267455  0.320726
+    42.360081,-71.058884,S      1.056212  0.320726
     42.360081,-71.058884,W      2.800000       NaN
 
 
