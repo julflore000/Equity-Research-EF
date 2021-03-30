@@ -5,12 +5,13 @@ from stateAbrevationsMap import us_state_abbrev
 import math
 
 
-def getDeclineFactors(plantDataset,year):
+def getDeclineFactors(plantDataset,year, declineFactor = "avg"):
     """returns a list that contains the decline factor for each plant in that year
 
     Args:
         plantDataset (panda): plants considered
         year (int): year of study for EFs
+        declineFactor (optional): base case set to true where we average the utility and residential solar decline factors (can also input "avg"), if we only want one or the other simply put in "res" or "util"
     """
     if year <= 2020:
         #just return a list of decline factors that are zero (no decline) if year <= 2020
@@ -29,13 +30,28 @@ def getDeclineFactors(plantDataset,year):
      
     ############# SOLAR DECLINE FACTOR CALCULATION START #############
     
+    #setting bool values for either res, utility, or average the decline factors based on input parameter
+    if declineFactor == "avg":
+        resBool = True
+        utilBool = True
+    elif declineFactor == "res":
+        resBool = True
+        utilBool = False
+    elif declineFactor == "util":
+        utilBool = True
+        resBool = False
+    else:
+        raise ValueError("decline factor input parameter should either be: 'avg', 'res', or 'util'")
+    
+    
+    
     #if solar plant we will be getting the bottom two rows which contain utility and residential solar- leading to an average
     
-    #get out capital expenditures average of utility and res for solar bottom year
-    capexBottomDeclineEF = (declineFactorDataset["CAPEX " +(str(roundDownYear))][1] + declineFactorDataset["CAPEX " +(str(roundDownYear))][2])/2
+    #get out capital expenditures average of utility(row 1) and residential (row 2) for solar bottom year
+    capexBottomDeclineEF = (declineFactorDataset["CAPEX " +(str(roundDownYear))][1]*utilBool + declineFactorDataset["CAPEX " +(str(roundDownYear))][2]*resBool)/(utilBool+resBool)
     
     #repeat for rounded up year
-    capexTopDeclineEF = (declineFactorDataset["CAPEX " +(str(roundUpYear))][1] + declineFactorDataset["CAPEX " +(str(roundUpYear))][2])/2
+    capexTopDeclineEF = (declineFactorDataset["CAPEX " +(str(roundUpYear))][1]*utilBool + declineFactorDataset["CAPEX " +(str(roundUpYear))][2]*resBool)/(utilBool+resBool)
     
     #gives us the annual change in decline factor from previous rounded year to next, uses linear interpolation
     annualCapexDecline = (capexTopDeclineEF-capexBottomDeclineEF)/roundOn
@@ -44,9 +60,9 @@ def getDeclineFactors(plantDataset,year):
     solarCapexDeclineFactor = capexBottomDeclineEF + annualCapexDecline* (year-roundDownYear)
     
     #repeat the same process as above but with OPEX-operational expenditures
-    opexBottomDeclineEF = (declineFactorDataset["OPEX " +(str(roundDownYear))][1] + declineFactorDataset["OPEX " +(str(roundDownYear))][2])/2
+    opexBottomDeclineEF = (declineFactorDataset["OPEX " +(str(roundDownYear))][1]*utilBool + declineFactorDataset["OPEX " +(str(roundDownYear))][2]*resBool)/(utilBool+resBool)
     
-    opexTopDeclineEF = (declineFactorDataset["OPEX " +(str(roundUpYear))][1] + declineFactorDataset["OPEX " +(str(roundUpYear))][2])/2
+    opexTopDeclineEF = (declineFactorDataset["OPEX " +(str(roundUpYear))][1]*utilBool + declineFactorDataset["OPEX " +(str(roundUpYear))][2]*resBool)/(utilBool+resBool)
     
     annualOpexDecline = (opexTopDeclineEF-opexBottomDeclineEF)/roundOn
 
@@ -101,7 +117,7 @@ def getDeclineFactors(plantDataset,year):
  
  
             
-def getReEFs(rePlantList,year):
+def getReEFs(rePlantList,year,optionalDeclineFactor = "avg"):
     """returns the employment factor for each lat long in panda dataframe, need to specify wind or solar
     At state level dimension
 
@@ -116,7 +132,7 @@ def getReEFs(rePlantList,year):
 
     
     #getting the total decline factors for that year and for all plants
-    declineFactorList = getDeclineFactors(rePlantList,year)
+    declineFactorList = getDeclineFactors(rePlantList,year,optionalDeclineFactor)
     #creation of final renewable EF dict, will convert to panda dataframe at end
     reEFDict = dict()
     

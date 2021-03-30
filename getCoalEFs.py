@@ -10,6 +10,7 @@ def getCoalEFs(coalPlantList):
     Args:
         coalPlantList ([list]): [includes the coal plants slated for retirement- should be from EIA 860]
     """ 
+    '''
     #read in coal plant data EF_data\coalEFs.xlsx
     coalPlantLocs = pd.read_excel("EF_data/coalPlantLocs.xlsx")
     
@@ -23,23 +24,14 @@ def getCoalEFs(coalPlantList):
     for plantName in coalPlantList:
         
         #finds which row that coal plant is in the excel EIA dataset
-        plantRowLocation = np.where(coalPlantLocs["Plant Name"] == plantName)[0]
+        plantRowLocation = np.where(coalPlantLocs["Plant Code"] == plantName)[0]
         
         #if multiple generators are called select the first row
         if len(plantRowLocation) > 1:
             plantRowLocation = plantRowLocation[0]
-        
-        #getting the technology of that plant
-        plantTech = coalPlantLocs["Technology"][plantRowLocation]
-        
-        #checking to make sure that the plant is labeled as Conventional Steam Coal, needs to be the only technology
-        if (plantTech != "Conventional Steam Coal"):
-            raise ValueError(f"The plant {plantName} is not labeled as conventional steam coal, its labeled as {plantTech}!")
-            print(f"Skipping {plantName} for now however errors may develop later on. :O")
-            continue
-        else:
-            #gets state and assigns into a dict with key as plant name
-            coalEFDataframe[plantName] = coalPlantLocs["State"][plantRowLocation]
+
+        #gets state and assigns into a dict with key as plant name
+        coalEFDataframe[plantName] = coalPlantLocs["State"][plantRowLocation]
     
     #final coal dict set up
     coalEFPandaDf = dict()
@@ -56,6 +48,9 @@ def getCoalEFs(coalPlantList):
     pandaCoalEF = pd.DataFrame.from_dict(coalEFPandaDf,orient='index',columns=['Plant EF'])
     
     return pandaCoalEF
+    '''
+    #simple EF factor: source in README, unable to implement state level jobs simply due to no resolution of job numbers at a state level basis
+    return .14
 
 
 def getCoalDecom():
