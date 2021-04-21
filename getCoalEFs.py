@@ -55,6 +55,6 @@ def getCoalEFs(coalPlantList):
 
 def getCoalDecom():
     """returns the employment factor for decommissioning a coal plant- right now fixed as static value
-    see readME for data source
+    source: Job creation during the global energy transition towards 100% renewable power system by 2050 
     """
     return 1.65

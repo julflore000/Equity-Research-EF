@@ -155,7 +155,7 @@ def getReEFs(rePlantList,year,optionalDeclineFactor = "avg"):
             reEFDict[lat+","+long+","+plantDetails[2]] = [renewableEFsDataset["PV Con/Instl EF"][plantRowLocation]* (1-declineFactor[0]), renewableEFsDataset["PV O&M EF"][plantRowLocation]*(1-declineFactor[1])]
         else:
             #for wind right now I am taking the average of the two decline factors-WILL MOST LIKELY CHANGE
-            reEFDict[lat+","+long+","+plantDetails[2]] = [renewableEFsDataset["WT Total EF"][plantRowLocation] * (1-(declineFactor[0] +declineFactor[1])/2)]
+            reEFDict[lat+","+long+","+plantDetails[2]] = [renewableEFsDataset["WT Con/Instl EF"][plantRowLocation] * (1-(declineFactor[0])),renewableEFsDataset["WT O&M EF"][plantRowLocation] * (1-(declineFactor[1]))]
 
     #transforming renewable EF dict into panda dataframe 
     pandaReEF = pd.DataFrame.from_dict(reEFDict,orient='index',columns=['Con/Instl EF','O&M EF'])
