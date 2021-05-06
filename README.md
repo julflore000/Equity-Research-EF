@@ -22,21 +22,8 @@ Job creation during the global energy transition towards 100% renewable power sy
 
 
 States and their abbreviations included in this module:
-* CT: Connecticut
-* DE: Delaware
-* MA: Massachusetts
-* MD: Maryland
-* ME: Maine
-* NH: New Hampshire
-* NJ: New Jersey
-* NY: New York
-* OH: Ohio
-* PA: Pennsylvania
-* RI: Rhode Island
-* VA: Virginia
-* VT: Vermont
-* WV: West Virginia
-
+* All states except AK and HI
+* **Make sure to check each state's EFs in the reEFs.xlsx file (may need to replace outliers with agreed upon values) before each simulation run**
 ### How to use:
 
 `getCoalEFs`: Input list of coal plant codes- see EIA dataset 6_2_EnviroEquip_Y2019.xlsx from EIA 860 for details, will then return 
@@ -62,6 +49,9 @@ Old version of returned dataset using EIA capacities (will now return a single s
 `getCoalDecom`: returns the static value of job-years/MW created for decommissioning a coal plant, data comes from the paper:  Job creation during the global energy transition towards 100% renewable power system by 2050 
     
 `getReEFs`: Input list of lat and long of plant as well as whether its solar or not, include in list within list. Also input year of analysis after list in module call
+
+**WARNING:** Solar EFs may not be accurate due to data source used. Check the reEFs xlsx for more info on a state by state basis to see the details. Possible solution to outliers is to replace with a common research value (more research is needed on this topic), can use the job creation during the global energy transition paper for substitute values.
+
 
 Example: 
 
