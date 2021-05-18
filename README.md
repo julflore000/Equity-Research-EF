@@ -11,8 +11,12 @@
 * Solar state level capacities was taken from https://seia.org/states-map
 * Solar Jobs data from https://www.solarstates.org/#states/solar-jobs/2019
 
+**Note:** The current units for O&M are jobs/MW, in our optimization formulation we have jobs/MWh. In order to convert jobs/MW to jobs/MWh you can either divide by the capacity factor of solar plants in that state or look up the state level generation.
+
+
 * Wind job values come from: Job creation during the global energy transition towards 100% renewable power system by 2050 due to inability to find wind jobs at a state level with breakdown of O&M and construction/installation
 
+**Important** Construction jobs are in job-years/MW, that means you need to multiply by the total construction time of the project
 
 * For  coal jobs , a static value of .14 jobs/MW is being used due to poor data source resolution- see source below
 
