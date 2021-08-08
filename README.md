@@ -1,6 +1,11 @@
 # Equity Research EFs
- Module for providing wind, solar, and coal job years/MW EFs based on location
+ Module for providing wind, solar, and coal jobs/MW EFs based on location
  * Current functionality: Unable to find state level job resolution borken down into O&M and con/instl sectors so currently using static values
+ * With construction EFs in job-years/MW
+
+## How this incorporates into optimization model
+* The module provides respective jobs/MW (O&M) or job-years/MW (Construction/Installation and decommissioning) depending on type of employment
+* Ultimately the final total jobs value provided will be in job-years (either by multiplying the respective jobs/MW by installed capacity each year or by multiplying the temporary job-years/MW by installed or decommissioning capacity)-however those calculations happen within the respective optimization model
 
 ### Modules to Install
 * Need to install geopy used to calculate which state that hypothetical plant is in
@@ -87,6 +92,4 @@ Example returned dataset for same coordinate with different keys(<=2020 there is
     42.360081,-71.058884,W      0.240000  0.300000
 
 
-* Note: for converting the solar construction jobs/MW to job-years/MW we divided the jobs by the expected lifetime of the plant: 30 years taken from  Job creation during the global energy transition towards 100% renewable power system by 2050
-
-* Note 2: O&M EF was taken from same source above, con/instl EF was taken from same source multiplied by projection lifetime (2 years) then divided by average lifetime: 2 (con/instl period) * 3 (con/instl EF) /25 (WT onshore wind lifetime)= .24 job-years/MW
+* Note: Simply using the jobs created in construction and using them as respective number of job years ( construction jobs for solar only exist for 1 year while wind is 2) Job creation during the global energy transition towards 100% renewable power system by 2050-used for wind, calculated solar from method presented in beginning
